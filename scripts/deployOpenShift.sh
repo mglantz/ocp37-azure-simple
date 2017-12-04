@@ -157,6 +157,7 @@ cat > /etc/ansible/hosts <<EOF
 # Create an OSEv3 group that contains the masters and nodes groups
 [OSEv3:children]
 masters
+etcd
 nodes
 nfs
 
@@ -213,6 +214,9 @@ openshift_master_logging_public_url=https://kibana.$ROUTING
 
 # host group for masters
 [masters]
+$MASTER-0.$DOMAIN
+
+[etcd]
 $MASTER-0.$DOMAIN
 
 [nfs]
