@@ -1,4 +1,4 @@
-# OpenShift Container Platform 3.6 with Username / Password authentication for OpenShift
+# OpenShift Container Platform 3.7 with Username / Password authentication for OpenShift
 
 ## To deploy a cluster with a one-liner using deploy.sh
 
