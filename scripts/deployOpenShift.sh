@@ -179,7 +179,7 @@ openshift_metrics_storage_nfs_options='*(rw,root_squash)'
 openshift_hosted_metrics_storage_nfs_directory=/exports
 openshift_hosted_metrics_storage_volume_name=metrics
 openshift_hosted_metrics_storage_volume_size=10Gi
-openshift_metrics_hawkular_hostname=https://hawkular-metrics.$ROUTING/hawkular/metrics
+openshift_metrics_hawkular_hostname=hawkular-metrics.$ROUTING
 
 # Setup logging
 openshift_hosted_logging_deploy=true
@@ -274,7 +274,7 @@ openshift_metrics_storage_nfs_options='*(rw,root_squash)'
 openshift_hosted_metrics_storage_nfs_directory=/exports
 openshift_hosted_metrics_storage_volume_name=metrics
 openshift_hosted_metrics_storage_volume_size=10Gi
-openshift_hosted_metrics_public_url=https://hawkular-metrics.$ROUTING/hawkular/metrics
+openshift_hosted_metrics_public_url=hawkular-metrics.$ROUTING
 
 # Setup logging
 openshift_hosted_logging_deploy=true
