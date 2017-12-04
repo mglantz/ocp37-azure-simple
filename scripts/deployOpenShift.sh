@@ -104,30 +104,8 @@ cat > /home/${SUDOUSER}/postinstall3.yml <<EOF
     shell: echo "${PASSWORD}"|passwd root --stdin
 EOF
 
-if [ $MASTERCOUNT -eq 1 ]
-then
-# Run on master
-cat > /home/${SUDOUSER}/postinstall4.yml <<EOF
----
-- hosts: masters
-  remote_user: ${SUDOUSER}
-  become: yes
-  become_method: sudo
-  vars:
-    description: "Unset default registry DNS name"
-  tasks:
-  - name: copy atomic-openshift-master file
-    copy:
-      src: /tmp/atomic-openshift-master
-      dest: /etc/sysconfig/atomic-openshift-master
-      owner: root
-      group: root
-      mode: 0644
-  - name: restart master
-    shell: systemctl restart atomic-openshift-master
-EOF
-else
-# HA setup. Run on all masters
+
+# Run on all masters
 cat > /home/${SUDOUSER}/postinstall4.yml <<EOF
 ---
 - hosts: masters
@@ -145,7 +123,6 @@ cat > /home/${SUDOUSER}/postinstall4.yml <<EOF
       group: root
       mode: 0644
 EOF
-fi
 
 # Create Ansible Hosts File
 echo $(date) " - Create Ansible Hosts file"
@@ -423,6 +400,11 @@ then
 		runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $item 'sudo systemctl restart atomic-openshift-master-api'"
 		runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $item 'sudo systemctl restart atomic-openshift-master-controllers'"
 	done
+else
+	runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocpm-0 'sudo sed -i \"s/OPENSHIFT_DEFAULT_REGISTRY/#OPENSHIFT_DEFAULT_REGISTRY/g\" /etc/sysconfig/atomic-openshift-master-api'"
+	runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocpm-0 'sudo sed -i \"s/OPENSHIFT_DEFAULT_REGISTRY/#OPENSHIFT_DEFAULT_REGISTRY/g\" /etc/sysconfig/atomic-openshift-master-controllers'"
+	runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocpm-0 'sudo systemctl restart atomic-openshift-master-api'"
+	runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocpm-0 'sudo systemctl restart atomic-openshift-master-controllers'"	
 fi
 
 echo $(date) " - Script complete"
