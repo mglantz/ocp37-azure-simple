@@ -1,0 +1,66 @@
+﻿{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"_artifactsLocation": {
+			"value": "https://raw.githubusercontent.com/mglantz/ocp37-azure-simple/master/"
+		},
+		"masterVmSize": {
+			"value": "Standard_DS4_v2"
+		},
+		"nodeVmSize": {
+			"value": "Standard_DS3_v2"
+		},
+		"openshiftClusterPrefix": {
+			"value": "ocp"
+		},
+		"openshiftMasterPublicIpDnsLabel": {
+			"value": "REPLACEmaster"
+		},
+		"infraLbPublicIpDnsLabel": {
+			"value": "REPLACEapps"
+		},
+		"masterInstanceCount": {
+			"value": 1
+		},
+		"nodeInstanceCount": {
+			"value": 1
+		},
+		"dataDiskSize": {
+			"value": 128
+		},
+		"adminUsername": {
+			"value": "OCP_USER"
+		},
+		"openshiftPassword": {
+			"value": "OCP_PASSWORD"
+		},
+		"cloudAccessUsername": {
+			"value": "RHN_ACCOUNT"
+		},
+		"cloudAccessPassword": {
+			"value": "RHN_PASSWORD"
+		},
+		"cloudAccessPoolId": {
+			"value": "SUBSCRIPTION_POOL_ID"
+		},
+		"sshPublicKey": {
+			"value": "PUBLIC_SSH_KEY"
+		},
+		"keyVaultResourceGroup": {
+			"value": "REPLACE"
+		},
+		"keyVaultName": {
+			"value": "REPLACEKeyVaultName"
+		},
+		"keyVaultSecret": {
+			"value": "REPLACESecretName"
+		},
+		"defaultSubDomainType": {
+			"value": "xipio"
+		},
+		"defaultSubDomain": {
+			"value": "customdomain.com"
+		}
+	}
+}
