@@ -137,7 +137,7 @@ then
    lvextend -l 100%FREE /dev/docker-vg/lv_nfs
    xfs_growfs /dev/docker-vg/lv_nfs
    
-   for item in registry metrics jenkins
+   for item in registry metrics jenkins osev3-etcd
    do 
       mkdir -p /exports/$item
    done
