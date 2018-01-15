@@ -191,6 +191,7 @@ openshift_hosted_logging_storage_nfs_directory=/exports
 openshift_hosted_logging_storage_volume_name=logging
 openshift_hosted_logging_storage_volume_size=10Gi
 openshift_master_logging_public_url=https://kibana.$ROUTING
+openshift_logging_kibana_hostname=kibana.$ROUTING
 
 # Setup storage for etcd2, for the new Service Broker
 openshift_hosted_etcd_storage_kind=nfs
