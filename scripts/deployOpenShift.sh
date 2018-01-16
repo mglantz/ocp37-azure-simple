@@ -190,7 +190,8 @@ openshift_logging_storage_nfs_options='*(rw,root_squash)'
 openshift_hosted_logging_storage_nfs_directory=/exports
 openshift_hosted_logging_storage_volume_name=logging
 openshift_hosted_logging_storage_volume_size=10Gi
-openshift_logging_master_public_url=https://kibana.$ROUTING
+openshift_logging_kibana_hostname=kibana.$ROUTING
+openshift_logging_master_public_url=https://$MASTERPUBLICIPHOSTNAME:8443
 
 # Setup storage for etcd2, for the new Service Broker
 openshift_hosted_etcd_storage_kind=nfs
@@ -285,7 +286,8 @@ openshift_logging_storage_nfs_options='*(rw,root_squash)'
 openshift_hosted_logging_storage_nfs_directory=/exports
 openshift_hosted_logging_storage_volume_name=logging
 openshift_hosted_logging_storage_volume_size=10Gi
-openshift_logging_master_public_url=https://kibana.$ROUTING
+openshift_logging_kibana_hostname=kibana.$ROUTING
+openshift_logging_master_public_url=https://$MASTERPUBLICIPHOSTNAME:8443
 
 # Setup storage for etcd2, for the new Service Broker
 openshift_hosted_etcd_storage_kind=nfs
