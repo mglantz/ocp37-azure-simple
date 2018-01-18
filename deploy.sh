@@ -160,6 +160,7 @@ azure group create $GROUP $LOCATION
 azure keyvault create -u ${GROUP}KeyVaultName -g $GROUP -l $LOCATION
 
 # Put SSH private key in key vault
+# FIXME: Add option to use arbitrary key here
 azure keyvault secret set -u ${GROUP}KeyVaultName -s ${GROUP}SecretName --file ~/.ssh/id_rsa
 
 # Enable key vault to be used for deployment
