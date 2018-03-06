@@ -184,6 +184,7 @@ openshift_metrics_hawkular_hostname=hawkular-metrics.$ROUTING
 # Setup logging
 openshift_hosted_logging_deploy=true
 openshift_hosted_logging_storage_kind=nfs
+openshift_logging_storage_kind=nfs
 openshift_hosted_logging_storage_access_modes=['ReadWriteOnce']
 openshift_hosted_logging_storage_host=$MASTER-0.$DOMAIN
 openshift_logging_storage_nfs_options='*(rw,root_squash)'
@@ -280,6 +281,7 @@ openshift_hosted_metrics_public_url=hawkular-metrics.$ROUTING
 # Setup logging
 openshift_hosted_logging_deploy=true
 openshift_hosted_logging_storage_kind=nfs
+openshift_logging_storage_kind=nfs
 openshift_hosted_logging_storage_access_modes=['ReadWriteOnce']
 openshift_hosted_logging_storage_host=$MASTER-0.$DOMAIN
 openshift_logging_storage_nfs_options='*(rw,root_squash)'
