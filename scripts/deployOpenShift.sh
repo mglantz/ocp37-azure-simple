@@ -146,7 +146,8 @@ openshift_install_examples=true
 deployment_type=openshift-enterprise
 docker_udev_workaround=true
 openshift_use_dnsmasq=true
-openshift_disable_check=disk_availability
+# Weird error when installing single master cluster fails on docker version, even though correct
+openshift_disable_check=disk_availability,package_version,package_update
 openshift_master_default_subdomain=$ROUTING
 openshift_override_hostname_check=true
 osm_use_cockpit=true
