@@ -79,10 +79,11 @@ echo $(date) " - Install base packages and update system to latest packages"
 yum -y install wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct httpd-tools
 yum -y update --exclude=WALinuxAgent
 
-# Install Docker 1.13.1
-echo $(date) " - Installing Docker 1.13.1"
+# Install Docker 1.12.6
+echo $(date) " - Installing Docker 1.12.6"
 
-yum -y install docker-1.13.1
+yum -y install docker-1.12.6
+
 sed -i -e "s#^OPTIONS='--selinux-enabled'#OPTIONS='--selinux-enabled --insecure-registry 172.30.0.0/16'#" /etc/sysconfig/docker
 
 # Create thin pool logical volume for Docker
