@@ -66,6 +66,25 @@ subscription-manager repos \
     --enable="rhel-7-fast-datapath-rpms" \
     --enable="rhel-7-server-ose-3.7-rpms"
 
+if yum repolist|grep -q ose-3.7; then
+	echo "Enabled repositories correctly."
+else
+	echo "Failed to enable repositories. Retrying."
+	sleep 5
+	subscription-manager repos \
+	 --enable="rhel-7-server-rpms" \
+   	 --enable="rhel-7-server-extras-rpms" \
+	 --enable="rhel-7-fast-datapath-rpms" \
+   	 --enable="rhel-7-server-ose-3.7-rpms"
+	if yum repolist|grep -q ose-3.7; then
+		echo "Enabled repositories correctly."
+	else
+		echo "Failed to enable repositories. Possible RHN or network issue."
+		exit 4
+	fi
+fi
+
+
 # Install and enable Cockpit
 echo $(date) " - Installing and enabling Cockpit"
 
