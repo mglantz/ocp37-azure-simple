@@ -38,6 +38,10 @@ sed -i -e "s/^# control_path = %(directory)s\/%%h-%%r/control_path = %(directory
 sed -i -e "s/^#host_key_checking = False/host_key_checking = False/" /etc/ansible/ansible.cfg
 sed -i -e "s/^#pty=False/pty=False/" /etc/ansible/ansible.cfg
 
+echo "Enable ansible logging"
+
+sed -i -e "s/^#log_path =/log_path =/" /etc/ansible/ansible.cfg
+
 # Create Ansible Playbook for Post Installation task
 echo $(date) " - Create Ansible Playbook for Post Installation task"
 
@@ -201,7 +205,7 @@ openshift_hosted_etcd_storage_kind=nfs
 openshift_hosted_etcd_storage_nfs_options="*(rw,root_squash,sync,no_wdelay)"
 openshift_hosted_etcd_storage_host=$MASTER-0.$DOMAIN
 openshift_hosted_etcd_storage_nfs_directory=/exports
-openshift_hosted_etcd_storage_volume_name=etcd-vol2 
+openshift_hosted_etcd_storage_volume_name=etcd-vol2
 openshift_hosted_etcd_storage_access_modes=["ReadWriteOnce"]
 openshift_hosted_etcd_storage_volume_size=1G
 openshift_hosted_etcd_storage_labels={'storage': 'etcd'}
@@ -298,7 +302,7 @@ openshift_hosted_etcd_storage_kind=nfs
 openshift_hosted_etcd_storage_nfs_options="*(rw,root_squash,sync,no_wdelay)"
 openshift_hosted_etcd_storage_host=$MASTER-0.$DOMAIN
 openshift_hosted_etcd_storage_nfs_directory=/exports
-openshift_hosted_etcd_storage_volume_name=etcd-vol2 
+openshift_hosted_etcd_storage_volume_name=etcd-vol2
 openshift_hosted_etcd_storage_access_modes=["ReadWriteOnce"]
 openshift_hosted_etcd_storage_volume_size=1G
 openshift_hosted_etcd_storage_labels={'storage': 'etcd'}
@@ -307,7 +311,7 @@ openshift_hosted_etcd_storage_labels={'storage': 'etcd'}
 [masters]
 EOF
 for node in ocpm-{0..3}; do
-	ping -c 1 $node 2>/dev/null|grep ocp|grep PING|awk '{ print $2 }' 
+	ping -c 1 $node 2>/dev/null|grep ocp|grep PING|awk '{ print $2 }'
 done|grep ocpm >>/etc/ansible/hosts
 
 cat >> /etc/ansible/hosts <<EOF
@@ -315,7 +319,7 @@ cat >> /etc/ansible/hosts <<EOF
 [etcd]
 EOF
 for node in ocpm-{0..3}; do
-	ping -c 1 $node 2>/dev/null|grep ocp|grep PING|awk '{ print $2 }' 
+	ping -c 1 $node 2>/dev/null|grep ocp|grep PING|awk '{ print $2 }'
 done|grep ocpm >>/etc/ansible/hosts
 
 cat >> /etc/ansible/hosts <<EOF
@@ -339,7 +343,7 @@ for node in ocpn-{0..30}; do
 done|grep ocpn >>/etc/ansible/hosts
 fi
 
-# Create and distribute hosts file to all nodes, this is due to us having to use 
+# Create and distribute hosts file to all nodes, this is due to us having to use
 (
 echo "127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4"
 echo "::1         localhost localhost.localdomain localhost6 localhost6.localdomain6"
@@ -430,7 +434,7 @@ else
 	runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocpm-0 'sudo sed -i \"s/OPENSHIFT_DEFAULT_REGISTRY/#OPENSHIFT_DEFAULT_REGISTRY/g\" /etc/sysconfig/atomic-openshift-master-api'"
 	runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocpm-0 'sudo sed -i \"s/OPENSHIFT_DEFAULT_REGISTRY/#OPENSHIFT_DEFAULT_REGISTRY/g\" /etc/sysconfig/atomic-openshift-master-controllers'"
 	runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocpm-0 'sudo systemctl restart atomic-openshift-master-api'"
-	runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocpm-0 'sudo systemctl restart atomic-openshift-master-controllers'"	
+	runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocpm-0 'sudo systemctl restart atomic-openshift-master-controllers'"
 fi
 
 echo $(date) " - Script complete"
